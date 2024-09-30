@@ -1,0 +1,20 @@
+# Rerun experiments on new pysindy commits
+# Only keep this file if you want to maintain your examples with future
+# breaking changes in pysindy.  If at some point you want to stop updating
+# the example to keep up with breaking changes, pin the versions of all
+# dependencies and delete this file.  You may still make changes to the
+# experiment afterwards.
+name: pysindy-commit
+
+on: workflow_dispatch
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"

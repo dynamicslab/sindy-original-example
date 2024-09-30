@@ -17,3 +17,8 @@ sphinx-build -W docs/source docs/build
 
 Other dependency methods, e.g. pyproject.toml, are acceptable.  You will need
 to modify the appropriate CI step
+
+There are two CI files: one to build the documentation, one to run the experiments
+against new versions of pysindy.  If you do not plan on updating the example code,
+its fine to leave the example dependent upon an old version of pysindy: delete the
+pysindy.yml CI file, 
