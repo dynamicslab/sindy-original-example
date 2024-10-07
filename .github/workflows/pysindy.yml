@@ -6,15 +6,48 @@
 # experiment afterwards.
 name: pysindy-commit
 
-on: workflow_dispatch
+# Ideally, this workflow would be triggered from each change to pysindy
+# But not sure how to do that yet, so just run it every other week
+# on: workflow_dispatch
+
+on:
+  schedule:
+    # run twice a month during times when hopefully few other jobs are scheduled
+    - cron: '0 12 6,21 * *'
+
 
 jobs:
-  Test:
+  find-notebooks:
     runs-on: ubuntu-latest
+    outputs:
+      paths: ${{ steps.find-notebooks.outputs.paths }}
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: List Files
+        id: find-notebooks
+        uses: mirko-felice/list-files-action@v3.0.5
         with:
-          python-version: "3.9"
+          repo: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          path: "examples"
+          ext: ".ipynb"
+  run-notebooks:
+    runs-on: ubuntu-latest
+    needs: find-notebooks
+    strategy:
+      matrix:
+        files: ${{ fromJson(needs.find-notebooks.outputs.paths) }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Set up Python"
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: pip install -r examples/requirements.txt
+    - name: "Install most current pysindy"
+      run: pip install pysindy[sbr,cvxpy,miosr] @ git+https://github/dynamicslab/pysindy@master
+    - name: "Run notebooks"
+      run: |
+        jupyter nbconvert --execute --to notebook  --inplace ${{ matrix.files }}
