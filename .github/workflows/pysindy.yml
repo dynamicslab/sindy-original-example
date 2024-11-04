@@ -11,10 +11,14 @@ name: pysindy-commit
 # on: workflow_dispatch
 
 on:
-  schedule:
-    # run twice a month during times when hopefully few other jobs are scheduled
-    - cron: '0 12 6,21 * *'
-
+  # Requires adding a Personal Access Token as a secret to pysindy in order
+  # in order to trigger CI
+  repository_dispatch:
+    types: [pysindy-commit]
+  # If you don't want to do all that, use cron trigger instead
+  # schedule:
+  #   # run twice a month during times when hopefully few other jobs are scheduled
+  #   - cron: '0 12 6,21 * *'
 
 jobs:
   find-notebooks:
@@ -47,7 +51,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r examples/requirements.txt
     - name: "Install most current pysindy"
-      run: pip install pysindy[sbr,cvxpy,miosr] @ git+https://github/dynamicslab/pysindy@master
+      run: pip install "pysindy[sbr,cvxpy,miosr] @ git+https://github/dynamicslab/pysindy@master"
     - name: "Run notebooks"
       run: |
         jupyter nbconvert --execute --to notebook  --inplace ${{ matrix.files }}
