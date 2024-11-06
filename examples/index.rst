@@ -1,17 +1,15 @@
-pysindy-example documentation
+Original (2016) paper
 =============================
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+This is a re-creation of the results from the
+`original SINDy paper <https://www.pnas.org/content/pnas/113/15/3932.full.pdf>`_.
 
-
-Perhaps list important version information here (python, pysindy?)
+Run in pysindy 1.7.5, Python 3.10.12
 
 
 .. toctree::
     :maxdepth: 1
     
-    /examples/sample-sindy.ipynb
+    /examples/original_paper.ipynb
 
 
 .. Note that "/" is relative to docs/source, and examples/ gets copied into
