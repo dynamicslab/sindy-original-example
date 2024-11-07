@@ -46,7 +46,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r examples/requirements.txt
     - name: "Install most current pysindy"
-      run: pip install "pysindy[sbr,cvxpy,miosr] @ git+https://github/dynamicslab/pysindy@master"
+      run: pip install "pysindy[sbr,cvxpy,miosr] @ git+https://github.com/dynamicslab/pysindy@master"
     - name: "Run notebooks"
       run: |
         jupyter nbconvert --execute --to notebook  --inplace ${{ matrix.files }}
