@@ -5,11 +5,6 @@
 # dependencies and delete this file.  You may still make changes to the
 # experiment afterwards.
 name: pysindy-commit
-
-# Ideally, this workflow would be triggered from each change to pysindy
-# But not sure how to do that yet, so just run it every other week
-# on: workflow_dispatch
-
 on:
   # Requires adding a Personal Access Token as a secret to pysindy in order
   # in order to trigger CI
