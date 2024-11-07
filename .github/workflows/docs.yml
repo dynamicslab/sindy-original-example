@@ -22,8 +22,8 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install pandoc
         pip install -r examples/requirements.txt
-        pip install sphinx nbsphinx
+        pip install sphinx nbsphinx sphinx_rtd_theme
     - name: Build docs
       run: |
         cd docs
-        sphinx-build -W docs/source docs/build
+        sphinx-build -Wb html source build
